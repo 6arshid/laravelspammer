@@ -202,7 +202,7 @@
     <h6 class="border-bottom pb-2 mb-2">Random Search</h6>
     @foreach(Helper::get_random_search() as $row)
                       @if(strlen($row->search_query) > 10)
-            <a href="/s/zs/{{Helper::url_slug($row->search_query)}}" class="btn btn-dark me-1 mb-1 btn-sm">{{$row->search_query}}</a>
+            <a href="/tags/{{Helper::url_slug($row->search_query)}}" class="btn btn-dark me-1 mb-1 btn-sm">{{$row->search_query}}</a>
           @endif
             @endforeach
      </div>

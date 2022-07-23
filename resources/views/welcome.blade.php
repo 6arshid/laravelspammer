@@ -55,7 +55,7 @@
                      
                       @foreach(Helper::trend_search(31) as $row)
                       @if(strlen($row->search_query) > 10)
-            <a href="/s/zs/{{Helper::url_slug($row->search_query)}}" class="btn btn-dark me-1 mb-1 btn-sm" >{{$row->search_query}}</a>
+            <a href="/tags/{{Helper::url_slug($row->search_query)}}" class="btn btn-dark me-1 mb-1 btn-sm" >{{$row->search_query}}</a>
           @endif
             @endforeach
 

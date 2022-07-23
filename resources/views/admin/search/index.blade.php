@@ -7,7 +7,7 @@
 
 
            @foreach(Helper::trend_search(250) as $row)
-            <a href="/s/zs/{{$row->search_query}}" target="_blank" class="btn btn-light me-1 mb-1">{{$row->search_query}}</a>
+            <a href="/tags/{{$row->search_query}}" target="_blank" class="btn btn-light me-1 mb-1">{{$row->search_query}}</a>
            @endforeach
 
            {{ Helper::trend_search(50)->links() }}

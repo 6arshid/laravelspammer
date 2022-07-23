@@ -1093,6 +1093,8 @@ class Helper
         }
         return $string;
 	}
+
+	
 	
 
 }

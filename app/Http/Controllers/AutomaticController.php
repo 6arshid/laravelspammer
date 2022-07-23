@@ -14,6 +14,7 @@ use Helper;
 use Image;
 use Carbon;
 use Auth;
+use voku\helper\HtmlDomParser;
 
 class AutomaticController extends Controller
 {
@@ -333,6 +334,54 @@ class AutomaticController extends Controller
     echo  $keyword;
     Helper::last_keyword_mker_search_crawl($keyword);
     DB::table('searches')->where('search_query',"$keyword")->update(array('search_crawl' => 1,'updated_at' => \Carbon\Carbon::now()));
+
+  }
+  public function get_urls($url,$end){
+    $x = 1;
+
+    while($x <= $end) {
+      
+      $url2 = "https://".$url."/page/".$x."/";
+      $checker_url = DB::table('urlcrrawlers')->where('uc_url',$url2)->first();
+      if(empty($checker_url->ser_url)){
+      $query = DB::table('urlcrrawlers')->insert([
+        'uc_url' => "$url2",
+        "created_at" =>  \Carbon\Carbon::now(), 
+        "updated_at" => \Carbon\Carbon::now()
+      ]);
+      }
+      sleep(1);
+      $x++;
+    }
+  }
+  public function get_url_content(){
+    $get = DB::table('urlcrrawlers')->where('uc_crawl',0)->orderBy("uc_id", "ASC")->first();
+    $url = $get->uc_url;
+ 
+     
+      $html = HtmlDomParser::file_get_html("$url");
+      $data = $html->find('a');
+      foreach($data as $row){
+        $es = $row->find('text');
+
+        $k = $es;
+        $checker = DB::table('searches')->where('search_query', 'like', '%' . $k . '%')->first();
+        if($checker == null){
+          $query = DB::table('searches')->insert([
+          'search_query' => $k,
+          'search_crawl' => 0,
+          "created_at" =>  \Carbon\Carbon::now(), 
+          "updated_at" => \Carbon\Carbon::now()
+          ]);
+          $query = DB::table('urlcrrawlers')->where('uc_url',"$get->uc_url")->update(array('uc_crawl' => 1,'updated_at' => \Carbon\Carbon::now()));
+        }
+        else{
+          $checker = DB::table('searches')->where('search_query', 'like', '%' . $k . '%')->first();
+          $query = DB::table('searches')->where('search_query', 'like', '%' . $k . '%')->update(array('search_crawl' => 1,'updated_at' => \Carbon\Carbon::now()));
+        }
+
+
+      }  
 
   }
 }
