@@ -37,7 +37,7 @@ class RootController extends Controller
 		->inRandomOrder()
 		->paginate(7);
 		foreach($tend_hashtagstend_hashtags as $row){
-            echo "<a href='http://".$url."/tags/".$row->search_query."' target='_blank'>$row->search_query</a>";
+            echo "<a href='https://".$url."/tags/".Helper::url_slug($row->search_query)."' target='_blank'>$row->search_query</a>";
         }
     }
     public function total(){

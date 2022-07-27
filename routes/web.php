@@ -26,6 +26,9 @@ Route::get('/s/gtrend24', [App\Http\Controllers\AutomaticController::class, 'gtr
 Route::get('/s/kmker', [App\Http\Controllers\AutomaticController::class, 'keyword_maker']);
 Route::get('/s/getwp/{url}/{end}', [App\Http\Controllers\AutomaticController::class, 'get_urls']);
 Route::get('/s/geturlcontent', [App\Http\Controllers\AutomaticController::class, 'get_url_content']);
+Route::get('/s/sexy', [App\Http\Controllers\AutomaticController::class, 'sexy']);
+Route::get('/s/txtkey', [App\Http\Controllers\AutomaticController::class, 'txtkeywordmaker']);
+Route::get('/s/rj', [App\Http\Controllers\AutomaticController::class, 'rj']);
 
 
 

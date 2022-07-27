@@ -7,35 +7,26 @@
 
 
 
-<section class="row justify-content-center mt-2">
-<div class="row text-center mt-2">
-
-<div class="col-md-8 text-start">
-<p>
+<section class="row justify-content-center">
+<div class="row text-center">
 
 
-<h1 class="btn btn-info btn-lg"  data-bs-toggle="modal" data-bs-target="#expandyourmindwithlt">Get results faster with {{ config('app.name') }}</h1>
-</p>
-</div>
-<div class="col-md-4 text-end">
-<div class="weatherWidget">
-	      <div id="loading"></div>
-	      <div class="place">
-	        <span class="city"></span><span class="country"></span>
-	      </div>
-	      <div class="temp"></div>
-	      <div class="desc"></div>
-	      <img id="icon">
-	    </div>
-</div>
 
-</div>
-<div class="col-md-12 text-center mt-2">
+<div class="col-md-12 text-center">
 
 
-<div class="justify-content-center"  style="margin-top:110px;margin-bottom:130px">
+<div class="justify-content-center p-4">
 
 
+                  
+
+                    <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Search Area</h6>
+                                </div>
+                                <div class="card-body">
+                          
+                                    
 <form class="d-flex" action="/zs/post" method="POST">
                     @csrf
                         <div class="search-icon">
@@ -47,59 +38,36 @@
                                       transform="translate(-1.25 -1.25)"></path>
                             </svg>
                         </div>
-                        <input class="form-control form-control-lg search-form-control me-2" type="text" placeholder="Type whatever you want here and get the best result" aria-label="Search" name="zoomsearch" id="zoomsearch" autocomplete="off">
+                        <input class="form-control bg-light form-control-lg search-form-control me-2" type="text" placeholder="Type whatever you want here and get the best result" aria-label="Search" name="zoomsearch" id="zoomsearch" autocomplete="off">
                      
                     </form>
-                    <br>
-                    <div class="text-start"><h3 class="btn btn-info">Trend Search</h3>
-                     
-                      @foreach(Helper::trend_search(31) as $row)
+                
+                    </div></div>
+                   
+
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Trend Search</h6>
+                                </div>
+                                <div class="card-body">
+                            
+                                    @foreach(Helper::trend_search(131) as $row)
                       @if(strlen($row->search_query) > 10)
-            <a href="/tags/{{Helper::url_slug($row->search_query)}}" class="btn btn-dark me-1 mb-1 btn-sm" >{{$row->search_query}}</a>
+                      <a href="/tags/{{Helper::url_slug($row->search_query)}}" class="btn btn-primary btn-icon-split mb-2">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-info-circle"></i>
+                                        </span>
+                                        <span class="text">{{$row->search_query}}</span>
+                                    </a>
           @endif
             @endforeach
 
-            
-                    </div>
-                    <div id="zoomsearch_list"></div> 
-                    
-                    
-                 
+                                </div>
+                            </div>
+        
+
+
                    
-
-              
-
-
-        <script type="text/javascript">
-            $(document).ready(function () {
-             
-                $('#zoomsearch').on('keyup',function() {
-                    var query = $(this).val(); 
-                    $.ajax({
-                       
-                        url:"/",
-                  
-                        type:"GET",
-                       
-                        data:{'zoomsearch':query},
-                       
-                        success:function (data) {
-                          
-                            $('#zoomsearch_list').html(data);
-                        }
-                    })
-                    // end of ajax call
-                });
-
-                
-                $(document).on('click', 'li', function(){
-                  
-                    var value = $(this).text();
-                    $('#zoomsearch').val(value);
-                    $('#zoomsearch_list').html("");
-                });
-            });
-        </script>
         
         
  </div>

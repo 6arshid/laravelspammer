@@ -10,7 +10,7 @@ use Vedmant\FeedReader\Facades\FeedReader;
 use App\Models\User;
 use App\Models\Setting;
 use App\Models\Article;
-use Helper;
+use Helper,Easycodes;
 use Image;
 use Carbon;
 use Auth;
@@ -357,8 +357,6 @@ class AutomaticController extends Controller
   public function get_url_content(){
     $get = DB::table('urlcrrawlers')->where('uc_crawl',0)->orderBy("uc_id", "ASC")->first();
     $url = $get->uc_url;
- 
-     
       $html = HtmlDomParser::file_get_html("$url");
       $data = $html->find('a');
       foreach($data as $row){
@@ -384,4 +382,51 @@ class AutomaticController extends Controller
       }  
 
   }
+  public function sexy(){
+    $get = DB::table('searches')->inRandomOrder()->first();
+    $keyword = $get->search_query;
+    echo $keyword;
+    Helper::sexy_spammer($keyword);
+    }
+    public function txtkeywordmaker(){
+      if ($file = fopen("https://dorger.app/test.txt", "r")) {
+        while(!feof($file)) {
+            $line = fgets($file);
+            
+            $checker = DB::table('searches')->where('search_query', 'like', '%' . $line . '%')->first();
+            if($checker == null){
+              $query = DB::table('searches')->insert([
+              'search_query' => $line,
+              'search_crawl' => 0,
+              "created_at" =>  \Carbon\Carbon::now(), 
+              "updated_at" => \Carbon\Carbon::now()
+              ]);
+            }
+            else{
+              $checker = DB::table('searches')->where('search_query', 'like', '%' . $line . '%')->first();
+              $query = DB::table('searches')->where('search_query', 'like', '%' . $line . '%')->update(array('search_crawl' => 1,'updated_at' => \Carbon\Carbon::now()));
+            }
+        }
+        fclose($file);
+    }
+    }
+    public function rj(){
+     
+
+      // $rj = Helper::curl_page("https://www.radiojavan.com/playlists/browse/Artists");
+      
+
+
+      // preg_match_all('/href="(.*?)"/s', $rj, $matches);
+
+      // $count = count($matches[1]);
+
+      // for ($row = 0; $row < $count ; $row++) {
+
+      //     $url = "https://radiojavan.com".$matches[1]["$row"];
+      //     echo "<a href=".$url." target='_blank' rel='link rel'>".$matches[1]["$row"]."</a><br />";
+
+      // }
+    
+    }
 }

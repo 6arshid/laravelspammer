@@ -306,7 +306,7 @@ class Helper
 		$trend_search = DB::table('searches')->select('search_query', DB::raw('COUNT(search_query) as count'))
 		->groupBy('search_query')
 		// ->whereDate('created_at',Carbon::now()->format('Y-m-d'))
-		->orderBy('search_view', 'DESC')
+		->inRandomOrder()
 		->paginate($take);
 		return $trend_search;
 	}
@@ -1016,35 +1016,71 @@ class Helper
         }
         return $string;
 	}
-	public static function report_finder($id){
-		$reports = DB::table('reports')->where('report_reported_user_id',$id)->first();
-		$username = Helper::find_user_info($id)->username;
-		$message = '<a href="'.$username .'/reports" class="btn btn-info btn-sm">View all reports</a>';
-		return $message;
+	public static function search_checker($k){
+		$checker = DB::table('searches')->where('search_query',"$k")->first();
+		if($checker == null){
+		  $query = DB::table('searches')->insert([
+			'search_query' => $k,
+			'search_crawl' => 0,
+			"created_at" =>  \Carbon\Carbon::now(), 
+		  "updated_at" => \Carbon\Carbon::now()
+		  ]);
 
-	}
-	public static function report_conversations($report_id){
-		$report_conversations = DB::table('reports_conversations')->where('report_c_report_id',$report_id)->paginate(10);
-		return $report_conversations;
-	}
-	public static function request_for_money_checker(){
-		$checker = DB::table("transactions")->where('transaction_receiver_id',Auth::user()->id)->where('success',1)->where('received',0)->first();
-		if(!empty($checker)){
-			$html = '<a href="/s/h/bank/rfp" class="btn btn-primary float-end mt-2 me-1 mb-4">Request for payment</a>';
-			return $html;
+		}
+		else{
+		  $checker = DB::table('searches')->where('search_query',"$k")->first();
+		  $query = DB::table('searches')->where('search_query',"$k")->update(array('search_crawl' => 1,'updated_at' => \Carbon\Carbon::now()));
 		}
 	}
-	public static function get_token_info($id){
-		$token = DB::table("tokens")->where('id',$id)->first();
-		return $token;
+	public static function search_checker_sexy($k){
+		$checker = DB::table('searches')->where('search_query',"$k")->first();
+		if($checker == null){
+		  $query = DB::table('searches')->insert([
+			'search_query' => $k,
+			'search_crawl' => 0,
+			"created_at" =>  \Carbon\Carbon::now(), 
+		  "updated_at" => \Carbon\Carbon::now()
+		  ]);
+
+		}
+		else{
+		  $checker = DB::table('searches')->where('search_query',"$k")->first();
+		  $query = DB::table('searches')->where('search_query',"$k")->update(array('search_crawl' => 2,'updated_at' => \Carbon\Carbon::now()));
+		}
 	}
-	public static function get_comment($id,$type){
-		$comments = DB::table('comments')->where('comment_anything_id',$id)->where('comment_anything_type',$type)->paginate(10);
-		return $comments;
-	}
-	public static function get_comment_info($id){
-		$comment = DB::table('comments')->where('comment_id',$id)->first();
-		return $comment;
+	public static function sexy_spammer($keyword){
+		$giphy = "https://giphy.com/search/".$keyword;
+		if(Helper::url_test($giphy)){
+			$html = HtmlDomParser::file_get_html("$giphy");
+			$data = $html->find('a');
+			foreach($data as $row){
+			  $es = $row->find('text');
+			  Helper::search_checker_sexy($es);
+			}
+		}
+		$google = "https://www.google.com/search?q=".$keyword;
+		if(Helper::url_test($google)){
+			$html = HtmlDomParser::file_get_html("$google");
+			$data = $html->find('a');
+			foreach($data as $row){
+			  $es = $row->find('text');
+			  Helper::search_checker_sexy($es);
+			}
+		}
+		$wikipedia = "https://en.wikipedia.org/w/index.php?search=".$keyword;
+		if(Helper::url_test($wikipedia)){
+			$html = HtmlDomParser::file_get_html("$wikipedia");
+			$data = $html->find('a');
+			foreach($data as $row){
+			  $es = $row->find('text');
+			  Helper::search_checker_sexy($es);
+			}
+		}
+
+
+
+		
+		
 	}
 	public static function gtrnd_k_mkr($keyword){
 		$checker = DB::table('searches')->where('search_query', 'like', '%' . $keyword . '%')->first();
@@ -1054,6 +1090,8 @@ class Helper
 			"created_at" =>  \Carbon\Carbon::now(), 
 		  "updated_at" => \Carbon\Carbon::now()
 		  ]);
+
+
 		}
 		else{
 		  $checker = DB::table('searches')->where('search_query', 'like', '%' . $keyword . '%')->first();
@@ -1081,7 +1119,7 @@ class Helper
 				"created_at" =>  \Carbon\Carbon::now(), 
 			  "updated_at" => \Carbon\Carbon::now()
 			  ]);
-			  
+
 		
 			}
 			else{
@@ -1093,6 +1131,23 @@ class Helper
         }
         return $string;
 	}
+	public static function  keyword_maker($keyword){
+		$keywords = array();
+        $data = Helper::last_get_data('http://suggestqueries.google.com/complete/search?output=firefox&client=firefox&hl=en-US&q=' . urlencode($keyword));
+
+        if (($data = json_decode($data, true)) !== null) {
+            $keywords = $data[1];
+        }
+
+        $string = '';
+        $i = 1;
+        foreach ($keywords as $k) {
+            $string .= $k . ', ';
+            if ($i++ == 10) break;
+        }
+        return $string;
+	}
+	
 
 	
 	

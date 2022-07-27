@@ -1,83 +1,214 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') - {{ config('app.name') }}</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-          rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom fonts for this template-->
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Segoe UI:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
-    @yield('head')
-    <link href="/style.css" rel="stylesheet" type="text/css"/>
+        @yield('head')
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/style.css" rel="stylesheet">
 
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
+</head>
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
+<body id="page-top">
 
-    
-  </head>
-  <body class="bg-light">
-    
-<nav class="navbar navbar-expand-sm fixed-top navbar-dark bg-dark" aria-label="Main navigation">
-  <div class="container">
-    <a class="navbar-brand" href="/">{{ config('app.name')}}</a>
-    <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
-    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-       
-       
-        <li class="nav-item">
-          <a class="nav-link" href="/s/contact">Contact Us</a>
-        </li>
-       
-      </ul>
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+                <div class="sidebar-brand-icon rotate-n-15">
+                   <img src="/logo.png" width="24">
+                </div>
+                <!-- <div class="sidebar-brand-text mx-3">Best result<sup>1</sup></div> -->
+                <div class="sidebar-brand-text mx-3">Best result</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="https://t.me/QaGErqhjhgf">
+                    <i class="fas fa-info-circle fa-fw"></i>
+                    <span>Contact for ads</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Ads
+            </div>
+            <li class="nav-item">
+            <a class="nav-link" href="https://babevpn.com?ref=rs" target="_blank">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Free VPN</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://danske.site?ref=rs" target="_blank">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Web agancy denmark</span></a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="https://danskesite.com?ref=rs" tartargetger="_blank">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>wordpress site builder</span></a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="https://farshid.dk?ref=rs" target="_blank">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Lave hjemmeside</span></a>
+            </li>
+
+            <li class="nav-item">
+            <a class="nav-link" href="https://phpfactory.dk?ref=rs" target="_blank">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Webudvikler</span></a>
+            </li>
+
       
-      <form class="d-flex" action="/zs/post" method="POST">
+            <li class="nav-item">
+            <a class="nav-link" href="https://wordpress.org/plugins/easy-form-builder?ref=rs" target="_blank">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Easy form builder</span></a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="https://mr.today?ref=rs" target="_blank">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Mr.Today</span></a>
+            </li>
+           
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+            <!-- Sidebar Message -->
+            <div class="sidebar-card d-none d-lg-flex">
+                <p class="text-center mb-2"><strong>Your ads in here</strong> </p>
+                <a class="btn btn-success btn-sm" href="https://t.me/QaGErqhjhgf">Contact Us</a>
+                <a class="btn btn-danger mt-2 btn-lg" href="/">Home</a>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+
+                    <!-- Topbar Search -->
+                    <form  class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"  action="/zs/post" method="POST">
                     @csrf
-                        <div class="search-icon">
-                            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
-                                 viewBox="0 0 21.5 21.5">
-                                <path d="M11.5,1.25A10.25,10.25,0,1,0,21.75,11.5,10.26,10.26,0,0,0,11.5,1.25Zm0,19a8.75,8.75,0,1,1,8.75-8.75A8.76,8.76,0,0,1,11.5,20.25Z"
-                                      transform="translate(-1.25 -1.25)"></path>
-                                <path d="M22.53,21.47l-2-2a.75.75,0,0,0-1.06,1.06l2,2a.75.75,0,0,0,1.06,0A.75.75,0,0,0,22.53,21.47Z"
-                                      transform="translate(-1.25 -1.25)"></path>
-                            </svg>
+                    <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Type + Enter" aria-label="Search" name="zoomsearch" id="zoomsearch" autocomplete="off"
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
                         </div>
-                        <input class="form-control search-form-control me-2" type="text" placeholder="Type + Enter" aria-label="Search" name="zoomsearch" id="zoomsearch" autocomplete="off">
-                     
                     </form>
+
+             
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+      
+
+             
+
+                    <!-- Content Row -->
+
+                    <div class="row">
+
+                    @yield('content')
+
+                    </div>
+
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Best result 2022</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
     </div>
-  </div>
-</nav>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
 
 
-<main class="container">
-  @yield('content')
-</main>
+    <!-- Bootstrap core JavaScript-->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-28608110-1"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <!-- <script src="/vendor/chart.js/Chart.min.js"></script> -->
+
+    <!-- Page level custom scripts -->
+    <!-- <script src="/js/demo/chart-area-demo.js"></script> -->
+    <!-- <script src="/js/demo/chart-pie-demo.js"></script> -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-28608110-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -85,11 +216,6 @@
 
   gtag('config', 'UA-28608110-1');
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
+</body>
 
-<script src="/script.js"></script>
-  </body>
 </html>

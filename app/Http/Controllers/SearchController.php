@@ -27,7 +27,7 @@ class SearchController extends Controller
         $tag_results  = DB::table('hashtags')->select('hashtag_title', DB::raw('COUNT(hashtag_title) as count'))->groupBy('hashtag_title')->where('hashtag_title', 'LIKE', "%$query%")->orderBy('count', 'DESC')->paginate(30);
         $article_results  = DB::table('articles')->where('article_content', 'LIKE', "%$query%")->paginate(20);
         $product_results  = DB::table('products')->where('product_name', 'LIKE', "%$query%")->orwhere('product_description', 'LIKE', "%$query%")->paginate(20);
-        return view('lt.zoomsearch',compact('request','tag_results','article_results','product_results'));  
+        return view('system.zoomsearch',compact('request','tag_results','article_results','product_results'));  
     }
     public function zoomsearchstring(Request $request,$string){
         $query = $string;
@@ -36,7 +36,7 @@ class SearchController extends Controller
         $tag_results = DB::table('hashtags')->where('hashtag_title', 'LIKE', "%$query%")->take(30)->get();
         $article_results  = DB::table('articles')->where('article_content', 'LIKE', "%$query%")->paginate(20);
         $product_results  = DB::table('products')->where('product_name', 'LIKE', "%$query%")->orwhere('product_description', 'LIKE', "%$query%")->paginate(20);
-        return view('lt.zoomsearch',compact('request','tag_results','article_results','product_results'));
+        return view('system.zoomsearch',compact('request','tag_results','article_results','product_results'));
 
     }
     public function zoomsearch(Request $request){
@@ -86,7 +86,7 @@ class SearchController extends Controller
         $tag_results  = DB::table('hashtags')->select('hashtag_title', DB::raw('COUNT(hashtag_title) as count'))->groupBy('hashtag_title')->where('hashtag_title', 'LIKE', "%$query%")->orderBy('count', 'DESC')->paginate(30);
         $article_results  = DB::table('articles')->where('article_content', 'LIKE', "%$query%")->paginate(20);
         $product_results  = DB::table('products')->where('product_name', 'LIKE', "%$query%")->orwhere('product_description', 'LIKE', "%$query%")->paginate(20);
-        return view('lt.zoomsearch',compact('request','tag_results','article_results','product_results'));
+        return view('system.zoomsearch',compact('request','tag_results','article_results','product_results'));
     }
 
 }
