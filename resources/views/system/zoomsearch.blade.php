@@ -39,7 +39,7 @@
                     <div class="card mb-4 py-3 border-left-info">
                     <h1 class="card-body h3 mb-1 text-gray-800 text-uppercase">Result for {{$request->zoomsearch}}</h1>
                                 <div class="card-body h2 text-gray-800">
-                                Find the category you want , Get results faster!<br>
+                                Get results faster!<br>
 Find category you want and click on the available resources.
                                 </div>
                             </div>

@@ -27,7 +27,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion text-uppercase" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
@@ -93,7 +93,11 @@
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Mr.Today</span></a>
             </li>
-           
+            <li class="nav-item">
+            <a class="nav-link" href="https://khadivar.com?ref=rs" alt="طراح سایت ،برنامه نویس سایت" target="_blank">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Web Programmer,Web Designer</span></a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
