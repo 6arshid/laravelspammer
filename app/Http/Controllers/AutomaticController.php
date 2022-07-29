@@ -338,7 +338,7 @@ class AutomaticController extends Controller
   }
   public function get_urls($url,$end){
     $x = 1;
-
+    
     while($x <= $end) {
       
       $url2 = "https://".$url."/page/".$x."/";
@@ -389,7 +389,7 @@ class AutomaticController extends Controller
     Helper::sexy_spammer($keyword);
     }
     public function txtkeywordmaker(){
-      if ($file = fopen("https://dorger.app/test.txt", "r")) {
+      if ($file = fopen("https://punjab.vip/test.txt", "r")) {
         while(!feof($file)) {
             $line = fgets($file);
             
@@ -409,6 +409,44 @@ class AutomaticController extends Controller
         }
         fclose($file);
     }
+    }
+    public function wnumber(){
+      return view('system.add_wnumber');
+    }
+    public function add_wnumberpost(Request $request){
+      Helper::w_joda($request->numbers);
+      return redirect()->back();
+
+    }
+    public function gwnumber(){
+
+      $wns = DB::table('whatsapp_numbers')->orderBy('wn_id', "ASC")->paginate(400);
+      return view('system.show_wnumber',compact(['wns']));
+    }
+    public function getdburls(){
+      $wns = DB::table('urlcrrawlers')->orderBy('uc_id', "DESC")->paginate(11);
+      foreach($wns as $wns_r){
+        echo $wns_r->uc_url."<br>";
+      }
+      
+    }
+    public function getallwebsite($num){
+      $x = 1;
+    
+      while($x <= $num) {
+        
+        $url2 = "https://www.redtube.com/?page=".$x;
+        $checker_url = DB::table('urlcrrawlers')->where('uc_url',$url2)->first();
+        if(empty($checker_url->ser_url)){
+        $query = DB::table('urlcrrawlers')->insert([
+          'uc_url' => "$url2",
+          "created_at" =>  \Carbon\Carbon::now(), 
+          "updated_at" => \Carbon\Carbon::now()
+        ]);
+        }
+        sleep(1);
+        $x++;
+      }
     }
     public function rj(){
      

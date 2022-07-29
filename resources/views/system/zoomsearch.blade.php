@@ -2,8 +2,8 @@
 
 
 @section('head')
-<meta name="description" content="{{Helper::keyword_maker($request->zoomsearch)}}">
-  <meta name="keywords" content="{{Helper::keyword_maker($request->zoomsearch)}}">
+<meta name="description" content="{{$request->zoomsearch}}">
+  <meta name="keywords" content="{{$request->zoomsearch}}">
   
 
 <!-- 
@@ -38,10 +38,20 @@
                     
                     <div class="card mb-4 py-3 border-left-info">
                     <h1 class="card-body h3 mb-1 text-gray-800 text-uppercase">Result for {{$request->zoomsearch}}</h1>
+<!-- {!!Helper::text_to_voice($request->zoomsearch)!!} -->
+
+
                                 <div class="card-body h2 text-gray-800">
                                 Get results faster!<br>
 Find category you want and click on the available resources.
                                 </div>
+<div class="row card-body">
+@foreach(Helper::find_first_google_result("$request->zoomsearch") as $row)
+<a href="https://www.google.com/search?q={{$request->zoomsearch}}&tbm=isch" target="_blank"><img src="/{{$row->file_path}}" width="200px" class="rounded m-2"></a>
+@endforeach
+</div>
+
+                          
                             </div>
                    
 
@@ -53,14 +63,16 @@ Find category you want and click on the available resources.
 
                             <div class="card mb-4 py-3 border-left-primary">
                                 <div class="card-body  text-uppercase">
-                                <h6 class="card-body h3 mb-1 text-gray-800 text-uppercase">Web</h6>
-    <a href="https://duckduckgo.com/?q={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2  h">duckduckgo</a>
-    <a href="https://www.bing.com/search?q={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">bing</a>
-    <a href="https://yandex.com/search/?text={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">yandex</a>
-    <a href="https://www.ecosia.org/search?q={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">ecosia</a>
-    <a href="https://last.today/search/{{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">last.today</a>
-    <a href="https://www.qwant.com/?q={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">qwant</a>
-    <a href="https://www.google.com/search?q={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">google</a>
+                                <h6 class="card-body h3 mb-1 text-gray-800 text-uppercase">Top Sites</h6>
+    <a href="https://twitter.com/search?q={{app('request')->zoomsearch}}"target="_blank" class="btn btn-info me-2 mb-2">twitter</a>
+    <a href="https://www.youtube.com/results?search_query={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">youtube</a>
+    <a href="https://www.facebook.com/search/top/?q={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">facebook</a>
+    <a href="https://www.linkedin.com/search/results/all/?keywords={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">linkedin</a>
+    <a href="https://www.reddit.com/search?q={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">reddit</a>
+    <a href="https://en.wikipedia.org/w/index.php?search={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">wikipedia</a>
+    <a href="https://www.britannica.com/search?query={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">britannica</a>
+    <a href="https://archive.org/search.php?query={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">archive</a>
+                              
                                 </div>
                             </div>
 
@@ -135,15 +147,14 @@ Find category you want and click on the available resources.
 
                         <div class="card mb-4 py-3 border-left-secondary">
                                 <div class="card-body   text-uppercase">
-                                <h6 class="card-body h3 mb-1 text-gray-800 text-uppercase">Top Sites</h6>
-    <a href="https://twitter.com/search?q={{app('request')->zoomsearch}}"target="_blank" class="btn btn-info me-2 mb-2">twitter</a>
-    <a href="https://www.youtube.com/results?search_query={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">youtube</a>
-    <a href="https://www.facebook.com/search/top/?q={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">facebook</a>
-    <a href="https://www.linkedin.com/search/results/all/?keywords={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">linkedin</a>
-    <a href="https://www.reddit.com/search?q={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">reddit</a>
-    <a href="https://en.wikipedia.org/w/index.php?search={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">wikipedia</a>
-    <a href="https://www.britannica.com/search?query={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">britannica</a>
-    <a href="https://archive.org/search.php?query={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">archive</a>
+                                <h6 class="card-body h3 mb-1 text-gray-800 text-uppercase">Web</h6>
+    <a href="https://duckduckgo.com/?q={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2  h">duckduckgo</a>
+    <a href="https://www.bing.com/search?q={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">bing</a>
+    <a href="https://yandex.com/search/?text={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">yandex</a>
+    <a href="https://www.ecosia.org/search?q={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">ecosia</a>
+    <a href="https://last.today/search/{{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">last.today</a>
+    <a href="https://www.qwant.com/?q={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">qwant</a>
+    <a href="https://www.google.com/search?q={{app('request')->zoomsearch}}" target="_blank" class="btn btn-info me-2 mb-2">google</a>
                                 </div>
                             </div>
 
@@ -247,7 +258,7 @@ Find category you want and click on the available resources.
 
                            @foreach(Helper::get_random_search() as $row)
                       @if(strlen($row->search_query) > 10)
-                           <a href="/tags/{{Helper::url_slug($row->search_query)}}" class="btn btn-primary btn-icon-split mb-2">
+                           <a href="/{{Helper::url_slug($row->search_query)}}" class="btn btn-primary btn-icon-split mb-2">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-info-circle"></i>
                                         </span>

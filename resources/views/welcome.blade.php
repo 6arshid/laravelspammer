@@ -49,11 +49,11 @@
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Trend Search</h6>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body  text-start">
                             
                                     @foreach(Helper::trend_search(131) as $row)
                       @if(strlen($row->search_query) > 10)
-                      <a href="/tags/{{Helper::url_slug($row->search_query)}}" class="btn btn-primary btn-icon-split mb-2">
+                      <a href="/{{Helper::url_slug($row->search_query)}}" class="btn btn-primary btn-icon-split mb-2">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-info-circle"></i>
                                         </span>
@@ -61,6 +61,17 @@
                                     </a>
           @endif
             @endforeach
+
+            @foreach($searches as $searche)
+            <a href="/{{Helper::url_slug($searche->search_query)}}" class="btn btn-primary btn-icon-split mb-2">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-info-circle"></i>
+                                        </span>
+                                        <span class="text">{{$searche->search_query}}</span>
+                                    </a>
+            @endforeach
+
+            {{$searches->links()}}
 
                                 </div>
                             </div>

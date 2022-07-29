@@ -49,44 +49,8 @@ class Helper
         $total_views = $get_total_views->settings_total_view;
 		return $total_views;
 	}
-	public static function get_client_ip()
-	{
+	
 
-	$clientIP = \Request::ip();
-
-	return $clientIP;
-	}
-
-	public static function deviceTime($dateFormatString)
-   { 
-        $responseTime = 21;
-		$get_client_ip = Helper::get_client_ip();
-        $ip = (isset($_SERVER["HTTP_CF_CONNECTING_IP"])?$_SERVER["HTTP_CF_CONNECTING_IP"]:$_SERVER['REMOTE_ADDR']);
-        $query = @unserialize (file_get_contents('http://ip-api.com/php/?fields=status,message,continent,continentCode,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,offset,currency,isp,org,as,asname,reverse,mobile,proxy,hosting,query'));
-		if ($query && $query['status'] == 'success') {
-		$timezone = $query['continent'] . '/' . $query['city'];
-			}
-        $date = new DateTime(date('m/d/Y h:i:s a', time()+$responseTime));
-        $date->setTimezone(new \DateTimeZone("$timezone"));
-
-    return $date->format($dateFormatString);
-   }
-	public static function str_finder($word, $array)
-	{
-		foreach($array as $a){
-
-			if (strpos($word,$a) !== false) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	public static function get_queries($tbl_name,$where,$wherequery,$order_by,$paginate)
-	{
-		$queryies = DB::table("$tbl_name")->where("$where",$wherequery)->orderBy("$order_by", "DESC")->paginate($paginate);
-		return $queryies;
-	}
 	public static function get_hashtagcontents($name,$take){
 		$hashtags = DB::table("hashtags")->join('articles', 'hashtags.hashtag_post_id', '=', 'articles.article_id')->where('hashtag_title',$name)->orderBy('article_id', "DESC")->paginate($take);
 		return $hashtags;
@@ -485,6 +449,26 @@ class Helper
 		// return $file_path;
 		
 		
+	}
+	public static function w_joda($string)
+	{
+
+
+		$x = explode(",", $string);
+
+        foreach ($x as $tagsx) {
+			$checker = DB::table('whatsapp_numbers')->where('wn_number',"$tagsx")->first();
+            if($checker == null){
+              $query = DB::table('whatsapp_numbers')->insert([
+              'wn_number' => $tagsx,
+              'wn_send' => 0,
+              "created_at" =>  \Carbon\Carbon::now(), 
+              "updated_at" => \Carbon\Carbon::now()
+              ]);
+            }
+        }
+
+				
 	}
 	public static function find_avatar($id)
 	{
@@ -1146,6 +1130,97 @@ class Helper
             if ($i++ == 10) break;
         }
         return $string;
+	}
+	public static function text_to_voice($text){
+
+
+
+// 		$txt= $text;
+//   $txt =htmlspecialchars($txt);
+//   $txt =rawurlencode($txt);
+//   $file_name1 = Helper::curl_page('https://translate.google.com/translate_tts?ie=UTF-8&client=gtx&q='.$txt.'&tl=en-IN');
+
+//   $file_name = md5("$text") . '.mp3';
+
+// 	$files->move('files/others', $file_name);
+// 	$file_path = 'files/others/'. $file_name;
+// 	DB::table('files')->insert([
+// 		'file_user_id' => 1,
+// 		'file_path' => $file_path,
+// 		'file_content_id' => rand(),
+// 		'type' => 'search'
+// 	]);
+
+  
+// 	$speech="<audio controls='controls' autoplay></audio>";
+// 	echo $speech;
+	
+
+	}
+	public static function find_first_google_result($string){
+		$checker = DB::table('searches')->where('search_query', 'like', '%' . $string . '%')->first();
+
+
+		if($checker == null){
+
+			$query = DB::table('searches')->insert([
+				'search_query' => $string,
+				"created_at" =>  \Carbon\Carbon::now(), 
+			"updated_at" => \Carbon\Carbon::now()
+			]);
+			$last_insert_ID = DB::getPdo()->lastInsertId();
+
+			$search_query = $string;
+			$search_query = urlencode( $search_query );
+			$html = HtmlDomParser::file_get_html("https://www.google.com/search?q=$search_query&tbm=isch");
+	
+	
+			$i=0;
+			foreach ($html->find('img') as $e) {
+				if($i==8) break;
+				// echo "<img src='$e->src' width='200'>" . '<br>';
+	
+					$file = $e->src;
+	
+					if(Helper::url_test($file)){
+						$file_name = Helper::gen_uuid($len=16).md5(uniqid()) . '.jpg';
+						if(preg_match('/\.(jpg|png|jpeg)$/', $file_name)) {
+							$img = Image::make($file);
+							$img->resize(800, 800);
+							$img->save("files/images/".$file_name);
+							$file_path = "files/images/".$file_name;
+						}else{
+							$files->move('files/others', $file_name);
+							$file_path = 'files/others/'. $file_name;
+						}
+						DB::table('files')->insert([
+							'file_user_id' => 1,
+							'file_path' => $file_path,
+							'file_content_id' => $last_insert_ID,
+							'type' => 'search'
+						]);
+					}else{
+
+					}
+				
+				$i++;  
+			} 
+			$files = DB::table('files')->where('file_content_id',$last_insert_ID)->where('type','search')->skip(1)->take(7)->get();
+			return $files;
+			
+
+		}
+		else{
+
+			$files = DB::table('files')->where('file_content_id',$checker->search_id)->where('type','search')->skip(1)->take(7)->get();
+			return $files;
+
+		}
+
+	
+	
+
+
 	}
 	
 

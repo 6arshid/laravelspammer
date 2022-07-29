@@ -96,7 +96,17 @@
             <li class="nav-item">
             <a class="nav-link" href="https://khadivar.com?ref=rs" alt="طراح سایت ،برنامه نویس سایت" target="_blank">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Web Programmer,Web Designer</span></a>
+                    <span>طراح سایت ،برنامه نویس سایت</span></a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="https://tarikhema.org?ref=rs" alt="تاریخ ما" target="_blank">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>تاریخ ما</span></a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="https://siminsagh.net?ref=rs" alt="سیمین ساق" target="_blank">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>شعر فارسی</span></a>
             </li>
 
             <!-- Divider -->

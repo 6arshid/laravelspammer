@@ -29,7 +29,9 @@ class RootController extends Controller
 {   
     public function welcome(Request $request)
     {
-        return view('welcome');
+        $searches = DB::table('searches')->orderBy('search_id','DESC')->paginate(701);
+
+        return view('welcome',compact(['searches']));
     }
     public function rand($url){
         $tend_hashtagstend_hashtags = DB::table('searches')->select('search_query', DB::raw('COUNT(search_query) as count'))
@@ -37,12 +39,21 @@ class RootController extends Controller
 		->inRandomOrder()
 		->paginate(7);
 		foreach($tend_hashtagstend_hashtags as $row){
-            echo "<a href='https://".$url."/tags/".Helper::url_slug($row->search_query)."' target='_blank'>$row->search_query</a>";
+            echo "<a href='https://".$url."/".Helper::url_slug($row->search_query)."' target='_blank'>$row->search_query</a>";
         }
     }
     public function total(){
     $total = \DB::table('searches')->count();
-    echo $total;
+    echo "Total Searches :".$total."<hr>";
+    $total2 = \DB::table('urlcrrawlers')->count();
+    echo "Total Urls :".$total2."<hr>";
+    $total3 = \DB::table('whatsapp_numbers')->count();
+    echo "Total Whatsapp Numbers :".$total3."<hr>";
+    }
+    public function tagstringredirect($string){
+        $url = "/".Helper::url_slug($string);
+        return redirect()->to($url);
+
     }
    
 
